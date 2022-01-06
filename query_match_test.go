@@ -18,6 +18,18 @@ func TestMatch(t *testing.T) {
 			},
 		},
 		{
+			"simple match",
+			Match("title", "sample text").Boost(50),
+			map[string]interface{}{
+				"match": map[string]interface{}{
+					"title": map[string]interface{}{
+						"query": "sample text",
+						"boost": 50,
+					},
+				},
+			},
+		},
+		{
 			"match with more params",
 			Match("issue_number").Query(16).Transpositions(false).MaxExpansions(32).Operator(OperatorAnd),
 			map[string]interface{}{

@@ -71,6 +71,7 @@ type matchParams struct {
 	MinMatch     string        `structs:"minimum_should_match,omitempty"`
 	ZeroTerms    ZeroTerms     `structs:"zero_terms_query,string,omitempty"`
 	Slp          uint16        `structs:"slop,omitempty"` // only relevant for match_phrase query
+	Boost        float32       `structs:"boost,omitempty"`
 }
 
 // Match creates a new query of type "match" with the provided field name.
@@ -200,6 +201,12 @@ func (q *MatchQuery) Slop(n uint16) *MatchQuery {
 func (q *MatchQuery) ZeroTermsQuery(s ZeroTerms) *MatchQuery {
 	q.params.ZeroTerms = s
 	return q
+}
+
+// Boost sets the boost value of the query.
+func (a *MatchQuery) Boost(b float32) *MatchQuery {
+	a.params.Boost = b
+	return a
 }
 
 // MatchOperator is an enumeration type representing supported values for a
